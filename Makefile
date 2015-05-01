@@ -4,7 +4,7 @@ PREFIX=/usr/local
 FFLAGS=-O2 -fPIC
 
 major=4
-version=$(major).1.0
+version=$(major).1.1
 
 objs=src/aaaaaa.o src/acosh.o src/aie.o src/ai.o src/albeta.o src/algams.o \
 src/ali.o src/alngam.o src/alnrel.o src/asinh.o src/asyik.o src/asyjy.o \

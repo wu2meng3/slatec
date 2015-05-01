@@ -88,801 +88,242 @@ C           (BKS, WRB)
 C   930201  Added DEC Alpha and SGI constants.  (RWC and WRB)
 C   930618  Corrected I1MACH(5) for Convex -p8 and -pd8 compiler
 C           options.  (DWL, RWC and WRB).
+C   150501  Replaced with alternative implementation from BLAS.
 C***END PROLOGUE  I1MACH
 C
-      INTEGER IMACH(16),OUTPUT
-      SAVE IMACH
-      EQUIVALENCE (IMACH(4),OUTPUT)
-C
-C     MACHINE CONSTANTS FOR THE AMIGA
-C     ABSOFT COMPILER
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -126 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1022 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE APOLLO
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        129 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1025 /
-C
-C     MACHINE CONSTANTS FOR THE BURROUGHS 1700 SYSTEM
-C
-C     DATA IMACH( 1) /          7 /
-C     DATA IMACH( 2) /          2 /
-C     DATA IMACH( 3) /          2 /
-C     DATA IMACH( 4) /          2 /
-C     DATA IMACH( 5) /         36 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         33 /
-C     DATA IMACH( 9) / Z1FFFFFFFF /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -256 /
-C     DATA IMACH(13) /        255 /
-C     DATA IMACH(14) /         60 /
-C     DATA IMACH(15) /       -256 /
-C     DATA IMACH(16) /        255 /
-C
-C     MACHINE CONSTANTS FOR THE BURROUGHS 5700 SYSTEM
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         48 /
-C     DATA IMACH( 6) /          6 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         39 /
-C     DATA IMACH( 9) / O0007777777777777 /
-C     DATA IMACH(10) /          8 /
-C     DATA IMACH(11) /         13 /
-C     DATA IMACH(12) /        -50 /
-C     DATA IMACH(13) /         76 /
-C     DATA IMACH(14) /         26 /
-C     DATA IMACH(15) /        -50 /
-C     DATA IMACH(16) /         76 /
-C
-C     MACHINE CONSTANTS FOR THE BURROUGHS 6700/7700 SYSTEMS
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         48 /
-C     DATA IMACH( 6) /          6 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         39 /
-C     DATA IMACH( 9) / O0007777777777777 /
-C     DATA IMACH(10) /          8 /
-C     DATA IMACH(11) /         13 /
-C     DATA IMACH(12) /        -50 /
-C     DATA IMACH(13) /         76 /
-C     DATA IMACH(14) /         26 /
-C     DATA IMACH(15) /     -32754 /
-C     DATA IMACH(16) /      32780 /
-C
-C     MACHINE CONSTANTS FOR THE CDC 170/180 SERIES USING NOS/VE
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         64 /
-C     DATA IMACH( 6) /          8 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         63 /
-C     DATA IMACH( 9) / 9223372036854775807 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         47 /
-C     DATA IMACH(12) /      -4095 /
-C     DATA IMACH(13) /       4094 /
-C     DATA IMACH(14) /         94 /
-C     DATA IMACH(15) /      -4095 /
-C     DATA IMACH(16) /       4094 /
-C
-C     MACHINE CONSTANTS FOR THE CDC 6000/7000 SERIES
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /    6LOUTPUT/
-C     DATA IMACH( 5) /         60 /
-C     DATA IMACH( 6) /         10 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         48 /
-C     DATA IMACH( 9) / 00007777777777777777B /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         47 /
-C     DATA IMACH(12) /       -929 /
-C     DATA IMACH(13) /       1070 /
-C     DATA IMACH(14) /         94 /
-C     DATA IMACH(15) /       -929 /
-C     DATA IMACH(16) /       1069 /
-C
-C     MACHINE CONSTANTS FOR THE CELERITY C1260
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          0 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / Z'7FFFFFFF' /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -126 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1022 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE CONVEX
-C     USING THE -fn COMPILER OPTION
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1023 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE CONVEX
-C     USING THE -fi COMPILER OPTION
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE CONVEX
-C     USING THE -p8 COMPILER OPTION
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         64 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         63 /
-C     DATA IMACH( 9) / 9223372036854775807 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         53 /
-C     DATA IMACH(12) /      -1023 /
-C     DATA IMACH(13) /       1023 /
-C     DATA IMACH(14) /        113 /
-C     DATA IMACH(15) /     -16383 /
-C     DATA IMACH(16) /      16383 /
-C
-C     MACHINE CONSTANTS FOR THE CONVEX
-C     USING THE -pd8 COMPILER OPTION
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         64 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         63 /
-C     DATA IMACH( 9) / 9223372036854775807 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         53 /
-C     DATA IMACH(12) /      -1023 /
-C     DATA IMACH(13) /       1023 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1023 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE CRAY
-C     USING THE 46 BIT INTEGER COMPILER OPTION
-C
-C     DATA IMACH( 1) /        100 /
-C     DATA IMACH( 2) /        101 /
-C     DATA IMACH( 3) /        102 /
-C     DATA IMACH( 4) /        101 /
-C     DATA IMACH( 5) /         64 /
-C     DATA IMACH( 6) /          8 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         46 /
-C     DATA IMACH( 9) / 1777777777777777B /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         47 /
-C     DATA IMACH(12) /      -8189 /
-C     DATA IMACH(13) /       8190 /
-C     DATA IMACH(14) /         94 /
-C     DATA IMACH(15) /      -8099 /
-C     DATA IMACH(16) /       8190 /
-C
-C     MACHINE CONSTANTS FOR THE CRAY
-C     USING THE 64 BIT INTEGER COMPILER OPTION
-C
-C     DATA IMACH( 1) /        100 /
-C     DATA IMACH( 2) /        101 /
-C     DATA IMACH( 3) /        102 /
-C     DATA IMACH( 4) /        101 /
-C     DATA IMACH( 5) /         64 /
-C     DATA IMACH( 6) /          8 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         63 /
-C     DATA IMACH( 9) / 777777777777777777777B /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         47 /
-C     DATA IMACH(12) /      -8189 /
-C     DATA IMACH(13) /       8190 /
-C     DATA IMACH(14) /         94 /
-C     DATA IMACH(15) /      -8099 /
-C     DATA IMACH(16) /       8190 /
-C
-C     MACHINE CONSTANTS FOR THE DATA GENERAL ECLIPSE S/200
-C
-C     DATA IMACH( 1) /         11 /
-C     DATA IMACH( 2) /         12 /
-C     DATA IMACH( 3) /          8 /
-C     DATA IMACH( 4) /         10 /
-C     DATA IMACH( 5) /         16 /
-C     DATA IMACH( 6) /          2 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         15 /
-C     DATA IMACH( 9) /      32767 /
-C     DATA IMACH(10) /         16 /
-C     DATA IMACH(11) /          6 /
-C     DATA IMACH(12) /        -64 /
-C     DATA IMACH(13) /         63 /
-C     DATA IMACH(14) /         14 /
-C     DATA IMACH(15) /        -64 /
-C     DATA IMACH(16) /         63 /
-C
-C     MACHINE CONSTANTS FOR THE DEC ALPHA
-C     USING G_FLOAT
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1023 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE DEC ALPHA
-C     USING IEEE_FLOAT
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE DEC RISC
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE DEC VAX
-C     USING D_FLOATING
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         56 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE DEC VAX
-C     USING G_FLOATING
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1023 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE ELXSI 6400
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         32 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -126 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1022 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE HARRIS 220
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          0 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         24 /
-C     DATA IMACH( 6) /          3 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         23 /
-C     DATA IMACH( 9) /    8388607 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         23 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         38 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE HONEYWELL 600/6000 SERIES
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /         43 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         36 /
-C     DATA IMACH( 6) /          6 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         35 /
-C     DATA IMACH( 9) / O377777777777 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         27 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         63 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE HP 730
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE HP 2100
-C     3 WORD DOUBLE PRECISION OPTION WITH FTN4
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          4 /
-C     DATA IMACH( 4) /          1 /
-C     DATA IMACH( 5) /         16 /
-C     DATA IMACH( 6) /          2 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         15 /
-C     DATA IMACH( 9) /      32767 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         23 /
-C     DATA IMACH(12) /       -128 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         39 /
-C     DATA IMACH(15) /       -128 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE HP 2100
-C     4 WORD DOUBLE PRECISION OPTION WITH FTN4
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          4 /
-C     DATA IMACH( 4) /          1 /
-C     DATA IMACH( 5) /         16 /
-C     DATA IMACH( 6) /          2 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         15 /
-C     DATA IMACH( 9) /      32767 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         23 /
-C     DATA IMACH(12) /       -128 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         55 /
-C     DATA IMACH(15) /       -128 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE HP 9000
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          7 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         32 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -126 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1015 /
-C     DATA IMACH(16) /       1017 /
-C
-C     MACHINE CONSTANTS FOR THE IBM 360/370 SERIES,
-C     THE XEROX SIGMA 5/7/9, THE SEL SYSTEMS 85/86, AND
-C     THE PERKIN ELMER (INTERDATA) 7/32.
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          7 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) /  Z7FFFFFFF /
-C     DATA IMACH(10) /         16 /
-C     DATA IMACH(11) /          6 /
-C     DATA IMACH(12) /        -64 /
-C     DATA IMACH(13) /         63 /
-C     DATA IMACH(14) /         14 /
-C     DATA IMACH(15) /        -64 /
-C     DATA IMACH(16) /         63 /
-C
-C     MACHINE CONSTANTS FOR THE IBM PC
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          0 /
-C     DATA IMACH( 4) /          0 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE IBM RS 6000
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          0 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE INTEL i860
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE PDP-10 (KA PROCESSOR)
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         36 /
-C     DATA IMACH( 6) /          5 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         35 /
-C     DATA IMACH( 9) / "377777777777 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         27 /
-C     DATA IMACH(12) /       -128 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         54 /
-C     DATA IMACH(15) /       -101 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR THE PDP-10 (KI PROCESSOR)
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         36 /
-C     DATA IMACH( 6) /          5 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         35 /
-C     DATA IMACH( 9) / "377777777777 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         27 /
-C     DATA IMACH(12) /       -128 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         62 /
-C     DATA IMACH(15) /       -128 /
-C     DATA IMACH(16) /        127 /
-C
-C     MACHINE CONSTANTS FOR PDP-11 FORTRAN SUPPORTING
+      INTEGER IMACH(16), OUTPUT, SC, SMALL(2)
+      SAVE IMACH, SC
+      REAL RMACH
+      EQUIVALENCE (IMACH(4),OUTPUT), (RMACH,SMALL(1))
+      INTEGER I3, J, K, T3E(3)
+      DATA T3E(1) / 9777664 /
+      DATA T3E(2) / 5323660 /
+      DATA T3E(3) / 46980 /
+C  THIS VERSION ADAPTS AUTOMATICALLY TO MOST CURRENT MACHINES,
+C  INCLUDING AUTO-DOUBLE COMPILERS.
+C  TO COMPILE ON OLDER MACHINES, ADD A C IN COLUMN 1
+C  ON THE NEXT LINE
+      DATA SC/0/
+C  AND REMOVE THE C FROM COLUMN 1 IN ONE OF THE SECTIONS BELOW.
+C  CONSTANTS FOR EVEN OLDER MACHINES CAN BE OBTAINED BY
+C          mail netlib@research.bell-labs.com
+C          send old1mach from blas
+C  PLEASE SEND CORRECTIONS TO dmg OR ehg@bell-labs.com.
+C
+C     MACHINE CONSTANTS FOR THE HONEYWELL DPS 8/70 SERIES.
+C
+C      DATA IMACH( 1) /    5 /
+C      DATA IMACH( 2) /    6 /
+C      DATA IMACH( 3) /   43 /
+C      DATA IMACH( 4) /    6 /
+C      DATA IMACH( 5) /   36 /
+C      DATA IMACH( 6) /    4 /
+C      DATA IMACH( 7) /    2 /
+C      DATA IMACH( 8) /   35 /
+C      DATA IMACH( 9) / O377777777777 /
+C      DATA IMACH(10) /    2 /
+C      DATA IMACH(11) /   27 /
+C      DATA IMACH(12) / -127 /
+C      DATA IMACH(13) /  127 /
+C      DATA IMACH(14) /   63 /
+C      DATA IMACH(15) / -127 /
+C      DATA IMACH(16) /  127 /, SC/987/
+C
+C     MACHINE CONSTANTS FOR PDP-11 FORTRANS SUPPORTING
 C     32-BIT INTEGER ARITHMETIC.
 C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         56 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
+C      DATA IMACH( 1) /    5 /
+C      DATA IMACH( 2) /    6 /
+C      DATA IMACH( 3) /    7 /
+C      DATA IMACH( 4) /    6 /
+C      DATA IMACH( 5) /   32 /
+C      DATA IMACH( 6) /    4 /
+C      DATA IMACH( 7) /    2 /
+C      DATA IMACH( 8) /   31 /
+C      DATA IMACH( 9) / 2147483647 /
+C      DATA IMACH(10) /    2 /
+C      DATA IMACH(11) /   24 /
+C      DATA IMACH(12) / -127 /
+C      DATA IMACH(13) /  127 /
+C      DATA IMACH(14) /   56 /
+C      DATA IMACH(15) / -127 /
+C      DATA IMACH(16) /  127 /, SC/987/
 C
-C     MACHINE CONSTANTS FOR PDP-11 FORTRAN SUPPORTING
-C     16-BIT INTEGER ARITHMETIC.
+C     MACHINE CONSTANTS FOR THE UNIVAC 1100 SERIES.
 C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          5 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         16 /
-C     DATA IMACH( 6) /          2 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         15 /
-C     DATA IMACH( 9) /      32767 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         56 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
+C     NOTE THAT THE PUNCH UNIT, I1MACH(3), HAS BEEN SET TO 7
+C     WHICH IS APPROPRIATE FOR THE UNIVAC-FOR SYSTEM.
+C     IF YOU HAVE THE UNIVAC-FTN SYSTEM, SET IT TO 1.
 C
-C     MACHINE CONSTANTS FOR THE SILICON GRAPHICS
+C      DATA IMACH( 1) /    5 /
+C      DATA IMACH( 2) /    6 /
+C      DATA IMACH( 3) /    7 /
+C      DATA IMACH( 4) /    6 /
+C      DATA IMACH( 5) /   36 /
+C      DATA IMACH( 6) /    6 /
+C      DATA IMACH( 7) /    2 /
+C      DATA IMACH( 8) /   35 /
+C      DATA IMACH( 9) / O377777777777 /
+C      DATA IMACH(10) /    2 /
+C      DATA IMACH(11) /   27 /
+C      DATA IMACH(12) / -128 /
+C      DATA IMACH(13) /  127 /
+C      DATA IMACH(14) /   60 /
+C      DATA IMACH(15) /-1024 /
+C      DATA IMACH(16) / 1023 /, SC/987/
 C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE SUN
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -125 /
-C     DATA IMACH(13) /        128 /
-C     DATA IMACH(14) /         53 /
-C     DATA IMACH(15) /      -1021 /
-C     DATA IMACH(16) /       1024 /
-C
-C     MACHINE CONSTANTS FOR THE SUN
-C     USING THE -r8 COMPILER OPTION
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          6 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         32 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         31 /
-C     DATA IMACH( 9) / 2147483647 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         53 /
-C     DATA IMACH(12) /      -1021 /
-C     DATA IMACH(13) /       1024 /
-C     DATA IMACH(14) /        113 /
-C     DATA IMACH(15) /     -16381 /
-C     DATA IMACH(16) /      16384 /
-C
-C     MACHINE CONSTANTS FOR THE UNIVAC 1100 SERIES FTN COMPILER
-C
-C     DATA IMACH( 1) /          5 /
-C     DATA IMACH( 2) /          6 /
-C     DATA IMACH( 3) /          1 /
-C     DATA IMACH( 4) /          6 /
-C     DATA IMACH( 5) /         36 /
-C     DATA IMACH( 6) /          4 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         35 /
-C     DATA IMACH( 9) / O377777777777 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         27 /
-C     DATA IMACH(12) /       -128 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         60 /
-C     DATA IMACH(15) /      -1024 /
-C     DATA IMACH(16) /       1023 /
-C
-C     MACHINE CONSTANTS FOR THE Z80 MICROPROCESSOR
-C
-C     DATA IMACH( 1) /          1 /
-C     DATA IMACH( 2) /          1 /
-C     DATA IMACH( 3) /          0 /
-C     DATA IMACH( 4) /          1 /
-C     DATA IMACH( 5) /         16 /
-C     DATA IMACH( 6) /          2 /
-C     DATA IMACH( 7) /          2 /
-C     DATA IMACH( 8) /         15 /
-C     DATA IMACH( 9) /      32767 /
-C     DATA IMACH(10) /          2 /
-C     DATA IMACH(11) /         24 /
-C     DATA IMACH(12) /       -127 /
-C     DATA IMACH(13) /        127 /
-C     DATA IMACH(14) /         56 /
-C     DATA IMACH(15) /       -127 /
-C     DATA IMACH(16) /        127 /
-C
-C***FIRST EXECUTABLE STATEMENT  I1MACH
-      IF (I .LT. 1  .OR.  I .GT. 16) GO TO 10
-C
+      IF (SC .NE. 987) THEN
+*        *** CHECK FOR AUTODOUBLE ***
+         SMALL(2) = 0
+         RMACH = 1E13
+         IF (SMALL(2) .NE. 0) THEN
+*           *** AUTODOUBLED ***
+            IF (      (SMALL(1) .EQ. 1117925532
+     *           .AND. SMALL(2) .EQ. -448790528)
+     *       .OR.     (SMALL(2) .EQ. 1117925532
+     *           .AND. SMALL(1) .EQ. -448790528)) THEN
+*               *** IEEE ***
+               IMACH(10) = 2
+               IMACH(14) = 53
+               IMACH(15) = -1021
+               IMACH(16) = 1024
+            ELSE IF ( SMALL(1) .EQ. -2065213935
+     *          .AND. SMALL(2) .EQ. 10752) THEN
+*               *** VAX WITH D_FLOATING ***
+               IMACH(10) = 2
+               IMACH(14) = 56
+               IMACH(15) = -127
+               IMACH(16) = 127
+            ELSE IF ( SMALL(1) .EQ. 1267827943
+     *          .AND. SMALL(2) .EQ. 704643072) THEN
+*               *** IBM MAINFRAME ***
+               IMACH(10) = 16
+               IMACH(14) = 14
+               IMACH(15) = -64
+               IMACH(16) = 63
+            ELSE
+               WRITE(*,9010)
+               STOP 777
+               END IF
+            IMACH(11) = IMACH(14)
+            IMACH(12) = IMACH(15)
+            IMACH(13) = IMACH(16)
+         ELSE
+            RMACH = 1234567.
+            IF (SMALL(1) .EQ. 1234613304) THEN
+*               *** IEEE ***
+               IMACH(10) = 2
+               IMACH(11) = 24
+               IMACH(12) = -125
+               IMACH(13) = 128
+               IMACH(14) = 53
+               IMACH(15) = -1021
+               IMACH(16) = 1024
+               SC = 987
+            ELSE IF (SMALL(1) .EQ. -1271379306) THEN
+*               *** VAX ***
+               IMACH(10) = 2
+               IMACH(11) = 24
+               IMACH(12) = -127
+               IMACH(13) = 127
+               IMACH(14) = 56
+               IMACH(15) = -127
+               IMACH(16) = 127
+               SC = 987
+            ELSE IF (SMALL(1) .EQ. 1175639687) THEN
+*               *** IBM MAINFRAME ***
+               IMACH(10) = 16
+               IMACH(11) = 6
+               IMACH(12) = -64
+               IMACH(13) = 63
+               IMACH(14) = 14
+               IMACH(15) = -64
+               IMACH(16) = 63
+               SC = 987
+            ELSE IF (SMALL(1) .EQ. 1251390520) THEN
+*              *** CONVEX C-1 ***
+               IMACH(10) = 2
+               IMACH(11) = 24
+               IMACH(12) = -128
+               IMACH(13) = 127
+               IMACH(14) = 53
+               IMACH(15) = -1024
+               IMACH(16) = 1023
+            ELSE
+               DO 10 I3 = 1, 3
+                  J = SMALL(1) / 10000000
+                  K = SMALL(1) - 10000000*J
+                  IF (K .NE. T3E(I3)) GO TO 20
+                  SMALL(1) = J
+ 10               CONTINUE
+*              *** CRAY T3E ***
+               IMACH( 1) = 5
+               IMACH( 2) = 6
+               IMACH( 3) = 0
+               IMACH( 4) = 0
+               IMACH( 5) = 64
+               IMACH( 6) = 8
+               IMACH( 7) = 2
+               IMACH( 8) = 63
+               CALL I1MCR1(IMACH(9), K, 32767, 16777215, 16777215)
+               IMACH(10) = 2
+               IMACH(11) = 53
+               IMACH(12) = -1021
+               IMACH(13) = 1024
+               IMACH(14) = 53
+               IMACH(15) = -1021
+               IMACH(16) = 1024
+               GO TO 35
+ 20            CALL I1MCR1(J, K, 16405, 9876536, 0)
+               IF (SMALL(1) .NE. J) THEN
+                  WRITE(*,9020)
+                  STOP 777
+                  END IF
+*              *** CRAY 1, XMP, 2, AND 3 ***
+               IMACH(1) = 5
+               IMACH(2) = 6
+               IMACH(3) = 102
+               IMACH(4) = 6
+               IMACH(5) = 46
+               IMACH(6) = 8
+               IMACH(7) = 2
+               IMACH(8) = 45
+               CALL I1MCR1(IMACH(9), K, 0, 4194303, 16777215)
+               IMACH(10) = 2
+               IMACH(11) = 47
+               IMACH(12) = -8188
+               IMACH(13) = 8189
+               IMACH(14) = 94
+               IMACH(15) = -8141
+               IMACH(16) = 8189
+               GO TO 35
+               END IF
+            END IF
+         IMACH( 1) = 5
+         IMACH( 2) = 6
+         IMACH( 3) = 7
+         IMACH( 4) = 6
+         IMACH( 5) = 32
+         IMACH( 6) = 4
+         IMACH( 7) = 2
+         IMACH( 8) = 31
+         IMACH( 9) = 2147483647
+ 35      SC = 987
+         END IF
+ 9010 FORMAT(/' Adjust autodoubled I1MACH by uncommenting data'/
+     * ' statements appropriate for your machine and setting'/
+     * ' IMACH(I) = IMACH(I+3) for I = 11, 12, and 13.')
+ 9020 FORMAT(/' Adjust I1MACH by uncommenting data statements'/
+     * ' appropriate for your machine.')
+      IF (I .LT. 1  .OR.  I .GT. 16) GO TO 40
       I1MACH = IMACH(I)
       RETURN
-C
-   10 CONTINUE
-      WRITE (UNIT = OUTPUT, FMT = 9000)
- 9000 FORMAT ('1ERROR    1 IN I1MACH - I OUT OF BOUNDS')
-C
-C     CALL FDUMP
-C
+ 40   WRITE(*,*) 'I1MACH(I): I =',I,' is out of bounds.'
       STOP
+      END
+      SUBROUTINE I1MCR1(A, A1, B, C, D)
+**** SPECIAL COMPUTATION FOR OLD CRAY MACHINES ****
+      INTEGER A, A1, B, C, D
+      A1 = 16777216*B + C
+      A = 16777216*A1 + D
       END

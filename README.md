@@ -31,7 +31,10 @@ where `gfortran` may be replaced by the name of your Fortran 77 compiler.
 [slt]: http://netlib.org/slatec
 
 # CORI @ NERSC
-make FC=ftn all
+make -j 4 FC=ftn all
 
 # GNU @ Bridges2
-make FC="gfortran -std=legacy" all
+make -j 4 FC="gfortran -std=legacy" all
+
+# STA2 & OMEGA & FRO
+make -j 4 FC=ifort all

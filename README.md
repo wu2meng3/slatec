@@ -30,7 +30,8 @@ where `gfortran` may be replaced by the name of your Fortran 77 compiler.
 [rel]: https://github.com/Rufflewind/slatec/releases
 [slt]: http://netlib.org/slatec
 
-#CORI@NERSC
+# CORI @ NERSC
 make FC=ftn all
 
-#
+# GNU @ Bridges2
+make FC="gfortran -std=legacy" all

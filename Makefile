@@ -1,6 +1,6 @@
 .POSIX:
 
-PREFIX=/usr/local
+PREFIX=./
 ARFLAGS=-cru
 FFLAGS=-O2 -fPIC
 

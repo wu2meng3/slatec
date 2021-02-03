@@ -29,3 +29,8 @@ where `gfortran` may be replaced by the name of your Fortran 77 compiler.
 [gde]: https://raw.githubusercontent.com/Rufflewind/slatec/master/guide
 [rel]: https://github.com/Rufflewind/slatec/releases
 [slt]: http://netlib.org/slatec
+
+#CORI@NERSC
+make FC=ftn all
+
+#

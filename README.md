@@ -40,4 +40,4 @@ make -j 4 FC="gfortran -std=legacy" all
 make -j 4 FC=ifort all
 
 #FRONTERA
-make -j 4 FC="mpif90 -qopenmp" all
+make -j 4 FC="mpiifort -qopenmp" all

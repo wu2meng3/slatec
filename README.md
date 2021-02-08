@@ -34,7 +34,8 @@ where `gfortran` may be replaced by the name of your Fortran 77 compiler.
 make -j 4 FC=ftn all
 
 # GNU @ Bridges2
-make -j 4 FC="gfortran -std=legacy" all
+# make -j 4 FC="gfortran -std=legacy" all
+make -j 4 FC="${MPI_GNU_DIR}/mpif90 -std=legacy" all
 
 # STA2
 make -j 4 FC=ifort all

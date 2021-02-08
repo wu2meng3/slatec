@@ -38,7 +38,7 @@ make -j 4 FC=ftn all
 make -j 4 FC="${MPI_GNU_DIR}/mpif90 -std=legacy" all
 
 # STA2
-make -j 4 FC=ifort all
+make -j 4 FC="mpiifort -qopenmp" all
 
 # OMEGA
 make -j 4 FC="mpif90 -qopenmp" all

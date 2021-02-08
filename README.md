@@ -31,7 +31,7 @@ where `gfortran` may be replaced by the name of your Fortran 77 compiler.
 [slt]: http://netlib.org/slatec
 
 # CORI @ NERSC
-make -j 4 FC=ftn all
+make -j 4 FC="ftn -qopenmp" all
 
 # GNU @ Bridges2
 # make -j 4 FC="gfortran -std=legacy" all

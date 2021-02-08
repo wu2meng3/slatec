@@ -36,8 +36,11 @@ make -j 4 FC=ftn all
 # GNU @ Bridges2
 make -j 4 FC="gfortran -std=legacy" all
 
-# STA2 & OMEGA
+# STA2
 make -j 4 FC=ifort all
+
+# OMEGA
+make -j 4 FC="mpif90 -qopenmp" all
 
 #FRONTERA
 make -j 4 FC="mpiifort -qopenmp" all
